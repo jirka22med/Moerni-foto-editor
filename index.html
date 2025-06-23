@@ -362,13 +362,15 @@ const contrastSlider = document.getElementById('contrast');
 const saturationSlider = document.getElementById('saturation');
 const exposureSlider = document.getElementById('exposure');
 const hueSlider = document.getElementById('hue');
-const sharpnessSlider = document.getElementById('sharpness'); // Nový slider pro ostrost
+const sharpnessSlider = document.getElementById('sharpness'); // Deklarace pro nový slider Ostrost/Rozostření
 
 let image = new Image();
-let imageData;
+let imageData; // Zde budeme uchovávat původní, neupravená data obrázku
 let isImageLoaded = false;
 
 // Debounce funkce pro omezení počtu volání applyFilters
+// Zajišťuje, že se applyFilters zavolá jen jednou po krátké pauze od posledního pohybu sliderem,
+// což zlepšuje výkon a plynulost.
 function debounce(func, wait) {
     let timeout;
     return function(...args) {
@@ -383,6 +385,7 @@ function debounce(func, wait) {
 
 const debouncedApplyFilters = debounce(applyFilters, 50);
 
+// Event Listener pro nahrání obrázku
 singleImageInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (!file) return;
@@ -391,15 +394,18 @@ singleImageInput.addEventListener('change', function(e) {
 
     reader.onload = function(event) {
         image.src = event.target.result;
-        originalImage.src = event.target.result; // Klíčová oprava: vložení obrázku do původního náhledu
+        [span_0](start_span)originalImage.src = event.target.result; // Důležité: Vloží nahraný obrázek i do náhledu "Před úpravou"[span_0](end_span)
 
         image.onload = function() {
+            // Určení maximální šířky a výšky pro zobrazení obrázku na canvasu
+            [span_1](start_span)// Původní kód nastavuje max 1920x1080, což je rozumné pro úpravu[span_1](end_span)
             const MAX_WIDTH = 1920;
             const MAX_HEIGHT = 1080;
 
             let width = image.width;
             let height = image.height;
 
+            // Změna velikosti obrázku, pokud překračuje maximální rozměry
             if (width > MAX_WIDTH || height > MAX_HEIGHT) {
                 const aspectRatio = width / height;
                 if (width > height) {
@@ -411,11 +417,14 @@ singleImageInput.addEventListener('change', function(e) {
                 }
             }
 
+            // Nastavení rozměrů canvasu a vykreslení původního obrázku
             editedCanvas.width = width;
             editedCanvas.height = height;
             ctx.drawImage(image, 0, 0, width, height);
+            // Uložení původních, neupravených dat pixelů z canvasu
             imageData = ctx.getImageData(0, 0, width, height);
             isImageLoaded = true;
+            // Po načtení obrázku aplikujeme filtry (zde se aplikuje i výchozí stav)
             applyFilters();
         };
     }
@@ -423,91 +432,98 @@ singleImageInput.addEventListener('change', function(e) {
     reader.readAsDataURL(file);
 });
 
+// Hlavní funkce pro aplikaci všech filtrů
 function applyFilters() {
     if (!isImageLoaded || !imageData) return;
 
-    // Vždy začínáme s původními daty pro nové filtry
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d');
-    tempCanvas.width = imageData.width;
-    tempCanvas.height = imageData.height;
-    tempCtx.putImageData(imageData, 0, 0); // Vloží původní ImageData na dočasný canvas
+    // Vždy začínáme s původními daty obrázku (imageData) pro všechny filtry,
+    // aby se filtry neaplikovaly kumulativně na již upravený obrázek.
+    // Vytvoříme dočasný ImageData objekt, se kterým budeme pracovat.
+    // Důležité je vytvořit nová data, nikoliv jen referenci.
+    let currentImageData = ctx.createImageData(imageData.width, imageData.height);
+    currentImageData.data.set(imageData.data); // Zkopírujeme původní pixely
 
-    let currentImageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-    let data = currentImageData.data; // Data, na která aplikujeme základní filtry
+    let data = currentImageData.data; // Reference na pole pixelů pro úpravu
 
+    // Získání aktuálních hodnot ze všech sliderů
     const brightness = parseInt(brightnessSlider.value);
     const contrast = parseInt(contrastSlider.value);
     const saturation = parseInt(saturationSlider.value);
     const exposure = parseInt(exposureSlider.value);
     const hue = parseInt(hueSlider.value);
-    const sharpness = parseInt(sharpnessSlider.value);
+    const sharpness = parseInt(sharpnessSlider.value); // Hodnota pro ostrost/rozostření
 
     const contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast));
 
-    // Aplikace základních filtrů (jas, kontrast, sytost, expozice, odstín)
+    // Aplikace základních filtrů (jas, kontrast, sytost, expozice, odstín) na pixely
     for (let i = 0; i < data.length; i += 4) {
         let r = data[i];
         let g = data[i + 1];
         let b = data[i + 2];
 
-        // Jas
+        // 1. Jas
         r += brightness;
         g += brightness;
         b += brightness;
 
-        // Kontrast
+        // 2. Kontrast
         r = contrastFactor * (r - 128) + 128;
         g = contrastFactor * (g - 128) + 128;
         b = contrastFactor * (b - 128) + 128;
 
-        // Sytost
+        // 3. Sytost (převod na průměr, posun od průměru)
         const avg = (r + g + b) / 3;
         r += (r - avg) * (saturation / 100);
         g += (g - avg) * (saturation / 100);
         b += (b - avg) * (saturation / 100);
 
-        // Expozice
+        // 4. Expozice
         r *= (1 + exposure / 100);
         g *= (1 + exposure / 100);
         b *= (1 + exposure / 100);
 
-        // Odstín (převod do HSV, úprava, zpět do RGB)
+        // 5. Odstín (převod RGB -> HSV, úprava H, převod HSV -> RGB)
         const hsv = rgbToHsv(r, g, b);
-        hsv[0] = (hsv[0] + hue / 100) % 1; // Zajištění rozsahu 0-1
+        hsv[0] = (hsv[0] + hue / 100) % 1; // Zajištění, že odstín zůstane v rozsahu 0-1
         const rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
 
+        // Uložení upravených hodnot zpět do dat pixelů
         data[i] = clamp(rgb[0], 0, 255);
         data[i + 1] = clamp(rgb[1], 0, 255);
         data[i + 2] = clamp(rgb[2], 0, 255);
-        data[i + 3] = data[i + 3]; // Alfa kanál zůstává původní
+        data[i + 3] = data[i + 3]; // Alfa kanál (průhlednost) se nemění
     }
 
-    // Aplikace ostrosti/rozostření jako poslední, pokud je hodnota nenulová
+    // Aplikace ostrosti/rozostření jako poslední krok, pokud je hodnota nenulová
     if (sharpness !== 0) {
         currentImageData = applySharpness(currentImageData, sharpness);
     }
 
-    // Vykreslení výsledku na hlavní canvas
+    // Vykreslení finálních upravených dat na canvas
     ctx.putImageData(currentImageData, 0, 0);
 }
 
+// Pomocná funkce pro oříznutí hodnoty do daného rozsahu (min-max)
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
+// Funkce pro převod RGB barevného modelu na HSV (Odstín, Sytost, Světlost/Jas)
+// Potřebné pro úpravu odstínu (Hue)
 function rgbToHsv(r, g, b) {
     r /= 255;
     g /= 255;
     b /= 255;
+
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
     let h, s, v = max;
-    const d = max - min;
 
+    const d = max - min;
     s = max === 0 ? 0 : d / max;
+
     if (max === min) {
-        h = 0;
+        h = 0; // Bez odstínu
     } else {
         switch (max) {
             case r: h = (g - b) / d + (g < b ? 6 : 0); break;
@@ -519,6 +535,7 @@ function rgbToHsv(r, g, b) {
     return [h, s, v];
 }
 
+// Funkce pro převod HSV barevného modelu zpět na RGB
 function hsvToRgb(h, s, v) {
     let r, g, b;
 
@@ -540,17 +557,19 @@ function hsvToRgb(h, s, v) {
     return [r * 255, g * 255, b * 255];
 }
 
-// HLAVNÍ FUNKCE PRO OSTROST/ROZOSTŘENÍ
+// HLAVNÍ FUNKCE PRO APLIKACI OSTROSTI/ROZOSTŘENÍ POMOCÍ KONVOLUCE
 function applySharpness(imgData, sharpnessAmount) {
     const width = imgData.width;
-    const height = imgData.height;
+    const height = imgData.data.length / 4 / width; // Správný výpočet výšky z délky dat
     const src = imgData.data;
-    const dest = new Uint8ClampedArray(src.length); // Cílová data pro upravený obrázek
+    const dest = new Uint8ClampedArray(src.length); // Cílové pole pro upravené pixely
 
     let kernel;
     let kernelWeight = 1;
 
-    // Kernely pro ostření a rozostření
+    // Definuje konvoluční kernely pro ostření a rozostření (Box Blur)
+    // Ostření: Zvýrazňuje hrany (součet kernelu je 1)
+    // Rozostření (Box Blur): Průměruje okolní pixely (součet kernelu je 9, proto dělení 9)
     if (sharpnessAmount > 0) { // Ostření
         kernel = [
             0, -1, 0,
@@ -565,25 +584,27 @@ function applySharpness(imgData, sharpnessAmount) {
             1, 1, 1
         ];
         kernelWeight = 9;
-    } else { // sharpnessAmount je 0, žádná změna
+    } else { // sharpnessAmount je 0, žádná změna, vrátíme původní data
         return imgData;
     }
 
     const kernelSize = 3; // Velikost kernelu (3x3)
-    const kernelOffset = Math.floor(kernelSize / 2);
+    const kernelOffset = Math.floor(kernelSize / 2); // Střed kernelu pro offset (zde 1 pro 3x3)
 
+    // Iterace přes každý pixel obrázku
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            const i = (y * width + x) * 4; // Index aktuálního pixelu (R)
+            const i = (y * width + x) * 4; // Index R kanálu aktuálního pixelu
 
             let r = 0, g = 0, b = 0;
 
+            // Aplikace kernelu: procházení okolních pixelů
             for (let ky = 0; ky < kernelSize; ky++) {
                 for (let kx = 0; kx < kernelSize; kx++) {
                     const pixelX = x + kx - kernelOffset;
                     const pixelY = y + ky - kernelOffset;
 
-                    // Kontrola hran obrázku
+                    // Kontrola, zda sousední pixel je v rámci obrázku
                     if (pixelX >= 0 && pixelX < width && pixelY >= 0 && pixelY < height) {
                         const neighborIndex = (pixelY * width + pixelX) * 4;
                         const kernelValue = kernel[ky * kernelSize + kx];
@@ -592,7 +613,8 @@ function applySharpness(imgData, sharpnessAmount) {
                         g += src[neighborIndex + 1] * kernelValue;
                         b += src[neighborIndex + 2] * kernelValue;
                     } else {
-                        // Mimo hranice, použij hodnotu aktuálního pixelu (rozšíření okraje)
+                        // Pokud je sousední pixel mimo hranice, použij hodnotu aktuálního pixelu
+                        // Tím se zabrání černým okrajům a vytvoří se "rozšíření okraje"
                         r += src[i] * kernel[ky * kernelSize + kx];
                         g += src[i + 1] * kernel[ky * kernelSize + kx];
                         b += src[i + 2] * kernel[ky * kernelSize + kx];
@@ -600,22 +622,22 @@ function applySharpness(imgData, sharpnessAmount) {
                 }
             }
 
-            // Aplikace normalizační váhy a clampování
+            // Uložení vypočítaných a oříznutých (clamp) hodnot do cílového pole
             dest[i] = clamp(r / kernelWeight, 0, 255);
             dest[i + 1] = clamp(g / kernelWeight, 0, 255);
             dest[i + 2] = clamp(b / kernelWeight, 0, 255);
-            dest[i + 3] = src[i + 3]; // Alfa kanál zůstává stejný
+            dest[i + 3] = src[i + 3]; // Alfa kanál (průhlednost) se vždy zachovává
         }
     }
 
-    // Vytvoříme nová ImageData a vrátíme je
+    // Vytvoříme nový ImageData objekt z upravených pixelů a vrátíme ho
     const newImageData = ctx.createImageData(width, height);
     newImageData.data.set(dest);
     return newImageData;
 }
 
 
-// Event Listenery pro posuvníky
+// Event Listenery pro aktualizaci hodnot a volání applyFilters
 brightnessSlider.addEventListener('input', () => {
     document.getElementById('brightnessValue').textContent = brightnessSlider.value;
     debouncedApplyFilters();
@@ -636,14 +658,14 @@ hueSlider.addEventListener('input', () => {
     document.getElementById('hueValue').textContent = hueSlider.value;
     debouncedApplyFilters();
 });
-// NOVÝ EVENT LISTENER PRO OSTROST/ROZOSTŘENÍ
+// NOVÝ EVENT LISTENER pro ostrost/rozostření
 sharpnessSlider.addEventListener('input', () => {
     document.getElementById('sharpnessValue').textContent = sharpnessSlider.value;
     debouncedApplyFilters();
 });
 
 
-// Ukládání obrázku v různých rozlišeních
+[span_2](start_span)// Funkce pro ukládání obrázku v různých rozlišeních (kompletně zachováno z tvého kódu)[span_2](end_span)
 document.getElementById('saveFullHD').addEventListener('click', function() {
     saveImage(1920, 1080);
 });
@@ -690,9 +712,10 @@ document.getElementById('768x1280').addEventListener('click', function() {
     saveImage(768, 1280);
 });
 
+// Funkce pro stažení upraveného obrázku
 function saveImage(width, height) {
     if (!isImageLoaded) {
-        alert("Nejprve načti obrázek!");
+        [span_3](start_span)alert("Nejprve načti obrázek!");[span_3](end_span)
         return;
     }
 
@@ -700,6 +723,7 @@ function saveImage(width, height) {
     const tempCtx = tempCanvas.getContext('2d');
     tempCanvas.width = width;
     tempCanvas.height = height;
+    [span_4](start_span)// Vykreslení aktuálního stavu z editedCanvas na dočasný canvas s požadovanými rozměry[span_4](end_span)
     tempCtx.drawImage(editedCanvas, 0, 0, editedCanvas.width, editedCanvas.height, 0, 0, width, height);
 
     const link = document.createElement('a');
@@ -707,6 +731,7 @@ function saveImage(width, height) {
     link.href = tempCanvas.toDataURL('image/png');
     link.click();
 }
+
 
     </script>
 </body>
