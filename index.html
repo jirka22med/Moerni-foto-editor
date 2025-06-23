@@ -352,356 +352,362 @@ input[type="file"]:hover {
         </div>
         
 
-    <script>const singleImageInput = document.getElementById('singleImageInput');
-        const originalImage = document.getElementById('originalImage');
-        const editedCanvas = document.getElementById('editedCanvas');
-        const ctx = editedCanvas.getContext('2d');
-        const brightnessSlider = document.getElementById('brightness');
-        const contrastSlider = document.getElementById('contrast');
-        const saturationSlider = document.getElementById('saturation');
-        const exposureSlider = document.getElementById('exposure');
-        const hueSlider = document.getElementById('hue');
-        // NOVÁ CONST: Získání elementu pro ostrost
-        const sharpnessSlider = document.getElementById('sharpness'); [span_0](start_span)//[span_0](end_span)
+    <script>
+const singleImageInput = document.getElementById('singleImageInput');
+const originalImage = document.getElementById('originalImage');
+const editedCanvas = document.getElementById('editedCanvas');
+const ctx = editedCanvas.getContext('2d');
+const brightnessSlider = document.getElementById('brightness');
+const contrastSlider = document.getElementById('contrast');
+const saturationSlider = document.getElementById('saturation');
+const exposureSlider = document.getElementById('exposure');
+const hueSlider = document.getElementById('hue');
+const sharpnessSlider = document.getElementById('sharpness'); // Nový slider pro ostrost
 
-        let image = new Image();
-        let imageData;
-        let isImageLoaded = false;
+let image = new Image();
+let imageData;
+let isImageLoaded = false;
 
-        [span_1](start_span)// Debounce funkce pro omezení počtu volání applyFilters[span_1](end_span)
-        function debounce(func, wait) {
-            let timeout; [span_2](start_span)//[span_2](end_span)
-            return function(...args) {
-                const later = () => {
-                    clearTimeout(timeout); [span_3](start_span)//[span_3](end_span)
-                    func.apply(this, args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
+// Debounce funkce pro omezení počtu volání applyFilters
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func.apply(this, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
-        const debouncedApplyFilters = debounce(applyFilters, 50); [span_4](start_span)//[span_4](end_span)
+const debouncedApplyFilters = debounce(applyFilters, 50);
 
-        singleImageInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
+singleImageInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
 
-            const reader = new FileReader();
+    const reader = new FileReader();
 
-            reader.onload = function(event) {
-                image.src = event.target.result;
-                originalImage.src = event.target.result;
+    reader.onload = function(event) {
+        image.src = event.target.result;
+        originalImage.src = event.target.result; // Klíčová oprava: vložení obrázku do původního náhledu
 
-                image.onload = function() {
-                    const MAX_WIDTH = 1920;
-                    const MAX_HEIGHT = 1080;
+        image.onload = function() {
+            const MAX_WIDTH = 1920;
+            const MAX_HEIGHT = 1080;
 
-                    [span_5](start_span)let width = image.width; //[span_5](end_span)
-                    let height = image.height;
+            let width = image.width;
+            let height = image.height;
 
-                    if (width > MAX_WIDTH || height > MAX_HEIGHT) {
-                        const aspectRatio = width / height;
-                        if (width > height) {
-                            width = MAX_WIDTH; [span_6](start_span)//[span_6](end_span)
-                            height = Math.round(MAX_WIDTH / aspectRatio);
-                        } else {
-                            height = MAX_HEIGHT;
-                            width = Math.round(MAX_HEIGHT * aspectRatio); [span_7](start_span)//[span_7](end_span)
-                        }
-                    }
-
-                    editedCanvas.width = width;
-                    editedCanvas.height = height;
-                    ctx.drawImage(image, 0, 0, width, height); [span_8](start_span)//[span_8](end_span)
-                    imageData = ctx.getImageData(0, 0, width, height); [span_9](start_span)//[span_9](end_span)
-                    isImageLoaded = true;
-                    applyFilters();
-                };
-            }
-
-            reader.readAsDataURL(file);
-        });
-
-        function applyFilters() {
-            if (!isImageLoaded || !imageData) return; [span_10](start_span)//[span_10](end_span)
-
-            // Vždy začínáme s původními daty pro nové filtry
-            const tempCanvas = document.createElement('canvas');
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCanvas.width = imageData.width;
-            tempCanvas.height = imageData.height;
-            tempCtx.putImageData(imageData, 0, 0); // Vloží původní ImageData na dočasný canvas
-
-            let currentImageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-            let data = currentImageData.data;
-
-            const brightness = parseInt(brightnessSlider.value);
-            const contrast = parseInt(contrastSlider.value);
-            const saturation = parseInt(saturationSlider.value);
-            const exposure = parseInt(exposureSlider.value); [span_11](start_span)//[span_11](end_span)
-            const hue = parseInt(hueSlider.value); [span_12](start_span)//[span_12](end_span)
-            const sharpness = parseInt(sharpnessSlider.value); // NOVÁ CONST pro ostrost
-
-            const contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast)); [span_13](start_span)//[span_13](end_span)
-
-            // Aplikace základních filtrů na data z tempCanvasu
-            for (let i = 0; i < data.length; i += 4) {
-                let r = data[i]; [span_14](start_span)//[span_14](end_span)
-                let g = data[i + 1]; [span_15](start_span)//[span_15](end_span)
-                let b = data[i + 2];
-
-                r += brightness; [span_16](start_span)//[span_16](end_span)
-                g += brightness; [span_17](start_span)//[span_17](end_span)
-                b += brightness;
-
-                r = contrastFactor * (r - 128) + 128; [span_18](start_span)//[span_18](end_span)
-                g = contrastFactor * (g - 128) + 128; [span_19](start_span)//[span_19](end_span)
-                b = contrastFactor * (b - 128) + 128; [span_20](start_span)//[span_20](end_span)
-
-                const avg = (r + g + b) / 3; [span_21](start_span)//[span_21](end_span)
-                r += (r - avg) * (saturation / 100); [span_22](start_span)//[span_22](end_span)
-                g += (g - avg) * (saturation / 100); [span_23](start_span)//[span_23](end_span)
-                b += (b - avg) * (saturation / 100); [span_24](start_span)//[span_24](end_span)
-
-                r *= (1 + exposure / 100); [span_25](start_span)//[span_25](end_span)
-                g *= (1 + exposure / 100); [span_26](start_span)//[span_26](end_span)
-                b *= (1 + exposure / 100);
-
-                const hsv = rgbToHsv(r, g, b); [span_27](start_span)//[span_27](end_span)
-                hsv[0] = (hsv[0] + hue / 100) % 1; [span_28](start_span)//[span_28](end_span)
-                const rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]); [span_29](start_span)//[span_29](end_span)
-
-                data[i] = clamp(rgb[0], 0, 255); [span_30](start_span)//[span_30](end_span)
-                data[i + 1] = clamp(rgb[1], 0, 255); [span_31](start_span)//[span_31](end_span)
-                data[i + 2] = clamp(rgb[2], 0, 255); [span_32](start_span)//[span_32](end_span)
-                // data[i + 3] zůstává původní alfa kanál
-            }
-
-            // NOVÁ FUNKCE: Aplikace ostrosti/rozostření
-            if (sharpness !== 0) {
-                currentImageData = applySharpness(currentImageData, sharpness);
-            }
-
-            // Vykreslení výsledku na hlavní canvas
-            ctx.putImageData(currentImageData, 0, 0); [span_33](start_span)//[span_33](end_span)
-        }
-
-        // Pomocné funkce (clamp, rgbToHsv, hsvToRgb) zůstávají stejné
-        function clamp(value, min, max) {
-            return Math.min(Math.max(value, min), max); [span_34](start_span)//[span_34](end_span)
-        }
-
-        function rgbToHsv(r, g, b) {
-            r /= 255;
-            g /= 255;
-            b /= 255; [span_35](start_span)//[span_35](end_span)
-            const max = Math.max(r, g, b); [span_36](start_span)//[span_36](end_span)
-            const min = Math.min(r, g, b);
-            let h, s, v = max; [span_37](start_span)//[span_37](end_span)
-            const d = max - min; [span_38](start_span)//[span_38](end_span)
-
-            s = max === 0 ? 0 : d / max; [span_39](start_span)//[span_39](end_span)
-            if (max === min) {
-                h = 0; [span_40](start_span)//[span_40](end_span)
-            } else {
-                switch (max) {
-                    case r: h = (g - b) / d + (g < b ? 6 : 0); break; [span_41](start_span)//[span_41](end_span)
-                    case g: h = (b - r) / d + 2; break; [span_42](start_span)//[span_42](end_span)
-                    case b: h = (r - g) / d + 4; break; [span_43](start_span)//[span_43](end_span)
-                }
-                h /= 6; [span_44](start_span)//[span_44](end_span)
-            }
-            return [h, s, v]; [span_45](start_span)//[span_45](end_span)
-        }
-
-        function hsvToRgb(h, s, v) {
-            let r, g, b;
-
-            const i = Math.floor(h * 6); [span_46](start_span)//[span_46](end_span)
-            const f = h * 6 - i; [span_47](start_span)//[span_47](end_span)
-            const p = v * (1 - s); [span_48](start_span)//[span_48](end_span)
-            const q = v * (1 - f * s); [span_49](start_span)//[span_49](end_span)
-            const t = v * (1 - (1 - f) * s); [span_50](start_span)//[span_50](end_span)
-
-            switch (i % 6) {
-                case 0: r = v, g = t, b = p; break; [span_51](start_span)//[span_51](end_span)
-                case 1: r = q, g = v, b = p; break; [span_52](start_span)//[span_52](end_span)
-                case 2: r = p, g = v, b = t; break; [span_53](start_span)//[span_53](end_span)
-                case 3: r = p, g = q, b = v; break; [span_54](start_span)//[span_54](end_span)
-                case 4: r = t, g = p, b = v; break; [span_55](start_span)//[span_55](end_span)
-                case 5: r = v, g = p, b = q; break; [span_56](start_span)//[span_56](end_span)
-            }
-
-            return [r * 255, g * 255, b * 255]; [span_57](start_span)//[span_57](end_span)
-        }
-
-        // NOVÁ HLAVNÍ FUNKCE PRO OSTROST/ROZOSTŘENÍ
-        function applySharpness(imgData, sharpnessAmount) {
-            const width = imgData.width;
-            const height = imgData.height;
-            const src = imgData.data;
-            const dest = new Uint8ClampedArray(src.length); // Cílová data pro upravený obrázek
-
-            // Vybereme kernel podle hodnoty sharpnessAmount
-            // Pro jednoduchost použijeme dva základní kernely: jeden pro ostření, jeden pro rozostření (box blur)
-            // Lze rozšířit o pokročilejší kernely, např. Gaussovo rozostření.
-            let kernel;
-            let kernelWeight = 1; // Váha pro normalizaci kernelu
-
-            if (sharpnessAmount > 0) { // Ostření
-                kernel = [
-                    0, -1, 0,
-                    -1, 5, -1,
-                    0, -1, 0
-                ];
-                kernelWeight = 1; // Suma kernelu je 1, takže normalizace není potřeba
-            } else if (sharpnessAmount < 0) { // Rozostření (Box Blur)
-                kernel = [
-                    1, 1, 1,
-                    1, 1, 1,
-                    1, 1, 1
-                ];
-                kernelWeight = 9; // Suma kernelu je 9
-            } else { // sharpnessAmount je 0, žádná změna
-                return imgData; // Vracíme původní data
-            }
-
-            const kernelSize = 3; // Velikost kernelu (3x3)
-            const kernelOffset = Math.floor(kernelSize / 2);
-
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const i = (y * width + x) * 4; // Index aktuálního pixelu (R)
-
-                    let r = 0, g = 0, b = 0;
-
-                    for (let ky = 0; ky < kernelSize; ky++) {
-                        for (let kx = 0; kx < kernelSize; kx++) {
-                            const pixelX = x + kx - kernelOffset;
-                            const pixelY = y + ky - kernelOffset;
-
-                            // Kontrola hran (pro jednoduchost přeskočíme pixely mimo obraz)
-                            if (pixelX >= 0 && pixelX < width && pixelY >= 0 && pixelY < height) {
-                                const neighborIndex = (pixelY * width + pixelX) * 4;
-                                const kernelValue = kernel[ky * kernelSize + kx];
-
-                                r += src[neighborIndex] * kernelValue;
-                                g += src[neighborIndex + 1] * kernelValue;
-                                b += src[neighborIndex + 2] * kernelValue;
-                            }
-                        }
-                    }
-
-                    // Aplikace normalizační váhy a clampování
-                    dest[i] = clamp(r / kernelWeight, 0, 255);
-                    dest[i + 1] = clamp(g / kernelWeight, 0, 255);
-                    dest[i + 2] = clamp(b / kernelWeight, 0, 255);
-                    dest[i + 3] = src[i + 3]; // Alfa kanál zůstává stejný
+            if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+                const aspectRatio = width / height;
+                if (width > height) {
+                    width = MAX_WIDTH;
+                    height = Math.round(MAX_WIDTH / aspectRatio);
+                } else {
+                    height = MAX_HEIGHT;
+                    width = Math.round(MAX_HEIGHT * aspectRatio);
                 }
             }
 
-            // Vytvoříme nová ImageData a vrátíme je
-            const newImageData = ctx.createImageData(width, height);
-            newImageData.data.set(dest);
-            return newImageData;
+            editedCanvas.width = width;
+            editedCanvas.height = height;
+            ctx.drawImage(image, 0, 0, width, height);
+            imageData = ctx.getImageData(0, 0, width, height);
+            isImageLoaded = true;
+            applyFilters();
+        };
+    }
+
+    reader.readAsDataURL(file);
+});
+
+function applyFilters() {
+    if (!isImageLoaded || !imageData) return;
+
+    // Vždy začínáme s původními daty pro nové filtry
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imageData.width;
+    tempCanvas.height = imageData.height;
+    tempCtx.putImageData(imageData, 0, 0); // Vloží původní ImageData na dočasný canvas
+
+    let currentImageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+    let data = currentImageData.data; // Data, na která aplikujeme základní filtry
+
+    const brightness = parseInt(brightnessSlider.value);
+    const contrast = parseInt(contrastSlider.value);
+    const saturation = parseInt(saturationSlider.value);
+    const exposure = parseInt(exposureSlider.value);
+    const hue = parseInt(hueSlider.value);
+    const sharpness = parseInt(sharpnessSlider.value);
+
+    const contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+
+    // Aplikace základních filtrů (jas, kontrast, sytost, expozice, odstín)
+    for (let i = 0; i < data.length; i += 4) {
+        let r = data[i];
+        let g = data[i + 1];
+        let b = data[i + 2];
+
+        // Jas
+        r += brightness;
+        g += brightness;
+        b += brightness;
+
+        // Kontrast
+        r = contrastFactor * (r - 128) + 128;
+        g = contrastFactor * (g - 128) + 128;
+        b = contrastFactor * (b - 128) + 128;
+
+        // Sytost
+        const avg = (r + g + b) / 3;
+        r += (r - avg) * (saturation / 100);
+        g += (g - avg) * (saturation / 100);
+        b += (b - avg) * (saturation / 100);
+
+        // Expozice
+        r *= (1 + exposure / 100);
+        g *= (1 + exposure / 100);
+        b *= (1 + exposure / 100);
+
+        // Odstín (převod do HSV, úprava, zpět do RGB)
+        const hsv = rgbToHsv(r, g, b);
+        hsv[0] = (hsv[0] + hue / 100) % 1; // Zajištění rozsahu 0-1
+        const rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
+
+        data[i] = clamp(rgb[0], 0, 255);
+        data[i + 1] = clamp(rgb[1], 0, 255);
+        data[i + 2] = clamp(rgb[2], 0, 255);
+        data[i + 3] = data[i + 3]; // Alfa kanál zůstává původní
+    }
+
+    // Aplikace ostrosti/rozostření jako poslední, pokud je hodnota nenulová
+    if (sharpness !== 0) {
+        currentImageData = applySharpness(currentImageData, sharpness);
+    }
+
+    // Vykreslení výsledku na hlavní canvas
+    ctx.putImageData(currentImageData, 0, 0);
+}
+
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+}
+
+function rgbToHsv(r, g, b) {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h, s, v = max;
+    const d = max - min;
+
+    s = max === 0 ? 0 : d / max;
+    if (max === min) {
+        h = 0;
+    } else {
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
         }
+        h /= 6;
+    }
+    return [h, s, v];
+}
 
-        [span_58](start_span)// Event Listenery pro stávající posuvníky (zůstávají stejné)[span_58](end_span)
-        brightnessSlider.addEventListener('input', () => {
-            document.getElementById('brightnessValue').textContent = brightnessSlider.value;
-            debouncedApplyFilters();
-        });
-        contrastSlider.addEventListener('input', () => {
-            document.getElementById('contrastValue').textContent = contrastSlider.value;
-            debouncedApplyFilters();
-        });
-        saturationSlider.addEventListener('input', () => {
-            document.getElementById('saturationValue').textContent = saturationSlider.value;
-            debouncedApplyFilters();
-        });
-        exposureSlider.addEventListener('input', () => {
-            document.getElementById('exposureValue').textContent = exposureSlider.value;
-            debouncedApplyFilters();
-        });
-        hueSlider.addEventListener('input', () => {
-            document.getElementById('hueValue').textContent = hueSlider.value;
-            debouncedApplyFilters();
-        });
+function hsvToRgb(h, s, v) {
+    let r, g, b;
 
-        // NOVÝ EVENT LISTENER PRO OSTROST/ROZOSTŘENÍ
-        sharpnessSlider.addEventListener('input', () => {
-            document.getElementById('sharpnessValue').textContent = sharpnessSlider.value;
-            debouncedApplyFilters();
-        });
+    const i = Math.floor(h * 6);
+    const f = h * 6 - i;
+    const p = v * (1 - s);
+    const q = v * (1 - f * s);
+    const t = v * (1 - (1 - f) * s);
 
-        [span_59](start_span)// Ukládání obrázku v různých rozlišeních (zůstávají stejné)[span_59](end_span)
-        document.getElementById('saveFullHD').addEventListener('click', function() {
-            saveImage(1920, 1080);
-        });
-        document.getElementById('savepn').addEventListener('click', function() {
-            saveImage(7632, 1936);
-        });
+    switch (i % 6) {
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+    }
 
-        document.getElementById('save4K').addEventListener('click', function() {
-            saveImage(3840, 2160);
-        });
-        document.getElementById('save8K').addEventListener('click', function() {
-            saveImage(7680, 4320);
-        });
+    return [r * 255, g * 255, b * 255];
+}
 
-        document.getElementById('savehd').addEventListener('click', function() {
-            saveImage(800, 600);
-        });
-        document.getElementById('savelod').addEventListener('click', function() {
-            saveImage(486, 253);
-        });
+// HLAVNÍ FUNKCE PRO OSTROST/ROZOSTŘENÍ
+function applySharpness(imgData, sharpnessAmount) {
+    const width = imgData.width;
+    const height = imgData.height;
+    const src = imgData.data;
+    const dest = new Uint8ClampedArray(src.length); // Cílová data pro upravený obrázek
 
-        document.getElementById('savepostavy').addEventListener('click', function() {
-            saveImage(174, 225);
-        });
-        document.getElementById('16x16').addEventListener('click', function() {
-            saveImage(16, 16);
-        });
+    let kernel;
+    let kernelWeight = 1;
 
-        document.getElementById('32x32').addEventListener('click', function() {
-            saveImage(32, 32);
-        });
-        document.getElementById('64x64').addEventListener('click', function() {
-            saveImage(64, 64);
-        });
+    // Kernely pro ostření a rozostření
+    if (sharpnessAmount > 0) { // Ostření
+        kernel = [
+            0, -1, 0,
+            -1, 5, -1,
+            0, -1, 0
+        ];
+        kernelWeight = 1;
+    } else if (sharpnessAmount < 0) { // Rozostření (Box Blur)
+        kernel = [
+            1, 1, 1,
+            1, 1, 1,
+            1, 1, 1
+        ];
+        kernelWeight = 9;
+    } else { // sharpnessAmount je 0, žádná změna
+        return imgData;
+    }
 
-        document.getElementById('82x82').addEventListener('click', function() {
-            saveImage(82, 82);
-        });
-        document.getElementById('100x100').addEventListener('click', function() {
-            saveImage(300, 300);
-        });
+    const kernelSize = 3; // Velikost kernelu (3x3)
+    const kernelOffset = Math.floor(kernelSize / 2);
 
-        document.getElementById('768x1280').addEventListener('click', function() {
-            saveImage(768, 1280);
-        });
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const i = (y * width + x) * 4; // Index aktuálního pixelu (R)
 
-        function saveImage(width, height) {
-            if (!isImageLoaded) {
-                alert("Nejprve načti obrázek!"); [span_60](start_span)//[span_60](end_span)
-                return; [span_61](start_span)//[span_61](end_span)
+            let r = 0, g = 0, b = 0;
+
+            for (let ky = 0; ky < kernelSize; ky++) {
+                for (let kx = 0; kx < kernelSize; kx++) {
+                    const pixelX = x + kx - kernelOffset;
+                    const pixelY = y + ky - kernelOffset;
+
+                    // Kontrola hran obrázku
+                    if (pixelX >= 0 && pixelX < width && pixelY >= 0 && pixelY < height) {
+                        const neighborIndex = (pixelY * width + pixelX) * 4;
+                        const kernelValue = kernel[ky * kernelSize + kx];
+
+                        r += src[neighborIndex] * kernelValue;
+                        g += src[neighborIndex + 1] * kernelValue;
+                        b += src[neighborIndex + 2] * kernelValue;
+                    } else {
+                        // Mimo hranice, použij hodnotu aktuálního pixelu (rozšíření okraje)
+                        r += src[i] * kernel[ky * kernelSize + kx];
+                        g += src[i + 1] * kernel[ky * kernelSize + kx];
+                        b += src[i + 2] * kernel[ky * kernelSize + kx];
+                    }
+                }
             }
 
-            const tempCanvas = document.createElement('canvas');
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCanvas.width = width;
-            tempCanvas.height = height;
-            tempCtx.drawImage(editedCanvas, 0, 0, editedCanvas.width, editedCanvas.height, 0, 0, width, height); [span_62](start_span)//[span_62](end_span)
-
-            const link = document.createElement('a');
-            link.download = `image_${width}x${height}.png`;
-            link.href = tempCanvas.toDataURL('image/png');
-            link.click(); [span_63](start_span)//[span_63](end_span)
+            // Aplikace normalizační váhy a clampování
+            dest[i] = clamp(r / kernelWeight, 0, 255);
+            dest[i + 1] = clamp(g / kernelWeight, 0, 255);
+            dest[i + 2] = clamp(b / kernelWeight, 0, 255);
+            dest[i + 3] = src[i + 3]; // Alfa kanál zůstává stejný
         }
+    }
+
+    // Vytvoříme nová ImageData a vrátíme je
+    const newImageData = ctx.createImageData(width, height);
+    newImageData.data.set(dest);
+    return newImageData;
+}
 
 
-        
+// Event Listenery pro posuvníky
+brightnessSlider.addEventListener('input', () => {
+    document.getElementById('brightnessValue').textContent = brightnessSlider.value;
+    debouncedApplyFilters();
+});
+contrastSlider.addEventListener('input', () => {
+    document.getElementById('contrastValue').textContent = contrastSlider.value;
+    debouncedApplyFilters();
+});
+saturationSlider.addEventListener('input', () => {
+    document.getElementById('saturationValue').textContent = saturationSlider.value;
+    debouncedApplyFilters();
+});
+exposureSlider.addEventListener('input', () => {
+    document.getElementById('exposureValue').textContent = exposureSlider.value;
+    debouncedApplyFilters();
+});
+hueSlider.addEventListener('input', () => {
+    document.getElementById('hueValue').textContent = hueSlider.value;
+    debouncedApplyFilters();
+});
+// NOVÝ EVENT LISTENER PRO OSTROST/ROZOSTŘENÍ
+sharpnessSlider.addEventListener('input', () => {
+    document.getElementById('sharpnessValue').textContent = sharpnessSlider.value;
+    debouncedApplyFilters();
+});
+
+
+// Ukládání obrázku v různých rozlišeních
+document.getElementById('saveFullHD').addEventListener('click', function() {
+    saveImage(1920, 1080);
+});
+document.getElementById('savepn').addEventListener('click', function() {
+    saveImage(7632, 1936);
+});
+
+document.getElementById('save4K').addEventListener('click', function() {
+    saveImage(3840, 2160);
+});
+document.getElementById('save8K').addEventListener('click', function() {
+    saveImage(7680, 4320);
+});
+
+document.getElementById('savehd').addEventListener('click', function() {
+    saveImage(800, 600);
+});
+document.getElementById('savelod').addEventListener('click', function() {
+    saveImage(486, 253);
+});
+
+document.getElementById('savepostavy').addEventListener('click', function() {
+    saveImage(174, 225);
+});
+document.getElementById('16x16').addEventListener('click', function() {
+    saveImage(16, 16);
+});
+
+document.getElementById('32x32').addEventListener('click', function() {
+    saveImage(32, 32);
+});
+document.getElementById('64x64').addEventListener('click', function() {
+    saveImage(64, 64);
+});
+
+document.getElementById('82x82').addEventListener('click', function() {
+    saveImage(82, 82);
+});
+document.getElementById('100x100').addEventListener('click', function() {
+    saveImage(300, 300);
+});
+
+document.getElementById('768x1280').addEventListener('click', function() {
+    saveImage(768, 1280);
+});
+
+function saveImage(width, height) {
+    if (!isImageLoaded) {
+        alert("Nejprve načti obrázek!");
+        return;
+    }
+
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = width;
+    tempCanvas.height = height;
+    tempCtx.drawImage(editedCanvas, 0, 0, editedCanvas.width, editedCanvas.height, 0, 0, width, height);
+
+    const link = document.createElement('a');
+    link.download = `image_${width}x${height}.png`;
+    link.href = tempCanvas.toDataURL('image/png');
+    link.click();
+}
+
     </script>
 </body>
 </html>
