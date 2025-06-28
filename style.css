@@ -1,0 +1,307 @@
+/* Základní reset a nastavení dokumentu */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    
+}
+
+/* Hlavní kontejner */
+.container {
+    max-width: 1900px; /* Zvětšeno pro lepší rozvržení */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid green; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+/* Nadpis */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    border: 2px solid gold; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+/* File inputy */
+input[type="file"] {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    width: 80%;
+    max-width: 500px;
+    border: 2px solid tomato /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+input[type="file"]:hover {
+    border-color: #666;
+    background-color: #f8f8f8;
+    border: 2px solid #333; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+/* Editor kontejner */
+.editor-container {
+    display: flex;
+    position: relative;
+    gap: 20px;
+    margin: 20px 0;
+    
+}
+
+/* Preview sekce */
+.preview {
+    flex: 1;
+    text-align: center;
+    background-color: #fafafa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    min-width: 300px; /* Minimální šířka pro náhledy */
+    border: 2px solid #333; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+.preview h2 {
+    margin-top: 0;
+    color: #444;
+    font-size: 1.2em;
+    border: 2px solid purple; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+/* Kontejner pro obrázky */
+.image-container {
+    width: 100%;
+    max-width: 590px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.image-container img,
+.image-container canvas {
+    max-width: 590px;
+    height: 380px;
+    border-radius: 4px;
+    border: 2px solid #333; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+/* Ovládací prvky - přesunuté napravo */
+.controls {
+    display: flex; /* Aktivace Flexboxu */
+    flex-direction: row; /* Horizontální uspořádání */
+    flex-wrap: wrap; /* Povolení zalamování do řádku */
+    justify-content: center; /* Centrované zarovnání na střed */
+    align-items: center; /* Vertikální zarovnání na střed, pokud by bylo potřeba */
+    gap: 20px; /* Mezera mezi jednotlivými skupinami */
+    width: 98%; /* Zachování plné šířky */
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid red; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+.controls input[type="number"] {
+    background-color: #f0f8ff; /* Světle modré pozadí */
+    border: 2px solid #87ceeb; /* Modrý rámeček */
+    border-radius: 5px; /* Zaoblení rohů */
+    padding: 5px; /* Vnitřní odsazení */
+    font-size: 14px; /* Větší písmo pro čitelnost */
+    color: #333; /* Tmavě šedý text */
+    border: 2px solid #B8860B; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+.controls input[type="number"]:focus {
+    outline: none; /* Odstranění defaultního rámečku při focusu */
+    border: 2px solid #B8860B; /* Tmavší modrý rámeček při focusu */
+    background-color: #e6f7ff; /* Světlejší pozadí při focusu */
+    
+}
+
+
+.control-groupo {
+    display: flex; /* Aktivace Flexboxu */
+    flex-direction: column; /* Vertikální uspořádání prvků uvnitř */
+    margin-bottom: 10px; /* Mezera mezi prvky */
+    
+}
+
+.control-group {
+    display: flex; /* Aktivace Flexboxu */
+    flex-direction: row; /* Horizontální uspořádání */
+    justify-content: center; /* Centrované do středu horizontálně */
+    align-items: center; /* Centrované vertikálně */
+    width: 100%; /* Zajistí roztažení na celou šířku rodiče */
+    gap: 10px; /* Mezera mezi prvky */
+    margin: 20px 0; /* Trochu prostoru kolem */
+    border: 2px solid #8B4513; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+.control-group input[type="file"] {
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    border: 2px solid #800000; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+}
+
+.control-group input[type="file"]:hover {
+    border-color: #4CAF50;
+    background-color: #f0fff0;
+}
+
+
+
+/* Save options */
+.save-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+    clear: both; /* Zajistí, že save options budou pod všemi plovoucími elementy */
+    
+}
+
+.resolution-buttons,
+.format-buttons,
+.dimension-buttons,
+.batch-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    border: 2px solid #00FFFF; /* Například tmavě šedý rámeček */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+    max-width: fit-content; /* Nebo nastav pevnou šířku, např. 600px */
+    margin-left: auto;     /* Vycentruje kontejner */
+    margin-right: auto;    /* Vycentruje kontejner */
+    padding: 1px;         /* Přidej vnitřní odsazení, aby rámeček nebyl nalepen na tlačítka */
+    box-sizing: border-box; /* Zajistí, že padding se započítá do celkové šířky */
+}
+
+.save-options button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+/* Styly pro různé typy tlačítek */
+.resolution-buttons button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.format-buttons button {
+    background-color: #2196F3;
+    color: white;
+}
+
+.dimension-buttons button {
+    background-color: #9C27B0;
+    color: white;
+}
+
+.batch-buttons button {
+    background-color: #FF9800;
+    color: white;
+}
+
+.save-options button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.save-options button:active {
+    transform: translateY(1px);
+}
+
+/* Kontejner pro více obrázků */
+.multiple-images-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
+/* Responsivní design */
+@media (max-width: 1600px) {
+    .container {
+        max-width: 95%;
+    }
+    
+    .controls {
+        position: static;
+        width: 100%;
+        margin: 20px 0;
+        right: 0;
+    }
+    
+    .editor-container {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    input[type="file"] {
+        width: 90%;
+    }
+    
+    .save-options button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    
+    .control-group input[type="number"] {
+        font-size: 16px;
+    }
+}
+
+/* Animace pro interaktivní prvky */
+@keyframes buttonPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.save-options button:focus {
+    animation: buttonPulse 0.3s ease;
+}
+.multiple-images-container {
+    display: grid;
+    grid-template-columns: repeat(10, 20px); /* 10 sloupců po 20px */
+    grid-gap: 2px;
+    max-width: 220px; /* 10 * 20px + mezery */
+}
+
+.multiple-images-container .image-container {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.multiple-images-container .uploaded-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
