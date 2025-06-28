@@ -1,0 +1,82 @@
+<html lang="cs"><head>
+    <link rel="stylesheet" href="style.css"><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderní Fotoeditor</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Moderní Fotoeditor</h1>
+        <div class="control-group">
+            <input type="file" id="singleImageInput" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp">
+            
+        </div>
+        
+        <div class="editor-container">
+            <div class="preview">
+                <h2>Před úpravou</h2>
+                <div class="image-container">
+                    <img id="originalImage" src="" alt="Původní obrázek">
+            </div>
+        </div>
+         <div class="preview">
+                <h2>Po úpravě</h2>
+                <div class="image-container">
+                    <canvas id="editedCanvas" width="1000" height="900"></canvas>
+            </div>
+        </div>
+    </div>
+<div class="controls">
+    <div class="control-groupo">
+     <label for="brightness">Jas: <span id="brightnessValue">0</span></label> <input type="number" id="brightness" min="-100" max="100" value="0">
+    </div>
+    <div class="control-groupo">
+     <label for="contrast">Kontrast: <span id="contrastValue">0</span></label> <input type="number" id="contrast" min="-100" max="100" value="0">
+    </div>
+    <div class="control-groupo">
+     <label for="saturation">Sytost: <span id="saturationValue">0</span></label> <input type="number" id="saturation" min="-100" max="300" value="0">
+    </div>
+    <div class="control-groupo">
+     <label for="exposure">Expozice: <span id="exposureValue">0</span></label> <input type="number" id="exposure" min="-100" max="100" value="0">
+    </div>
+    <div class="control-groupo">
+     <label for="hue">Odstín: <span id="hueValue">0</span></label> <input type="number" id="hue" min="0" max="100" value="0">
+    </div>
+   <div class="control-groupo">
+            <label for="sharpness">Ostrost/Rozostření: <span id="sharpnessValue">0</span></label>
+            <input type="number" id="sharpness" min="-10" max="10" value="0">
+        </div>
+    </div>
+     </div>
+           <!-- tady chybí uzavírka 1-->
+
+
+    <div class="save-options">
+        <!-- Standardní rozlišení -->
+        <div class="resolution-buttons">
+            <button id="saveFullHD">Uložit FullHD</button>
+            <button id="save4K">Uložit 4K</button>
+            <button id="save8K">Uložit 8K</button>
+        </div>
+        <!-- Speciální formáty pro hry -->
+        <div class="format-buttons">
+            <button id="savepn">Uložit PN</button>
+            <button id="savehd">Uložit Hra</button>
+            <button id="savelod">Uložit lod</button>
+            <button id="savepostavy">Uložit postavy</button>
+        </div>
+        <!-- Rozměry pro herní textury -->
+        <div class="dimension-buttons">
+            <button id="16x16">16x16</button>     
+            <button id="32x32">32x32</button>            
+            <button id="64x64">64x64</button>
+            <button id="82x82">82x82</button>
+            <button id="100x100">100x100</button>
+            <button id="768x1280">768x1280</button>
+        </div>
+         </div>
+                   <!-- tady chybí uzavírka 2 -->
+    
+
+
+<script src="script.js"></script></body></html>
