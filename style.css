@@ -16,8 +16,7 @@ body {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 2px solid green; /* Například tmavě šedý rámeček */
-    /* Případně box-shadow pro jemnou záři nebo hloubku */
+     
 }
 
 /* Nadpis */
@@ -27,6 +26,12 @@ h1 {
     margin-bottom: 20px;
     border: 2px solid gold; /* Například tmavě šedý rámeček */
     /* Případně box-shadow pro jemnou záři nebo hloubku */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+    max-width: fit-content; /* Omezení šířky na obsah */
+    margin-left: auto;     /* Vycentruje kontejner */
+    margin-right: auto;    /* Vycentruje kontejner */
+    padding: 1px;          /* Vnitřní odsazení */
+    box-sizing: border-box; /* Započítání paddingu do šířky */
 }
 
 /* File inputy */
@@ -69,6 +74,7 @@ input[type="file"]:hover {
     min-width: 300px; /* Minimální šířka pro náhledy */
     border: 2px solid #333; /* Například tmavě šedý rámeček */
     /* Případně box-shadow pro jemnou záři nebo hloubku */
+    
 }
 
 .preview h2 {
@@ -77,6 +83,12 @@ input[type="file"]:hover {
     font-size: 1.2em;
     border: 2px solid purple; /* Například tmavě šedý rámeček */
     /* Případně box-shadow pro jemnou záři nebo hloubku */
+    /* Případně box-shadow pro jemnou záři nebo hloubku */
+    max-width: fit-content; /* Omezení šířky na obsah */
+    margin-left: auto;     /* Vycentruje kontejner */
+    margin-right: auto;    /* Vycentruje kontejner */
+    padding: 1px;          /* Vnitřní odsazení */
+    box-sizing: border-box; /* Započítání paddingu do šířky */
 }
 
 /* Kontejner pro obrázky */
@@ -144,8 +156,7 @@ input[type="file"]:hover {
     width: 100%; /* Zajistí roztažení na celou šířku rodiče */
     gap: 10px; /* Mezera mezi prvky */
     margin: 20px 0; /* Trochu prostoru kolem */
-    border: 2px solid #8B4513; /* Například tmavě šedý rámeček */
-    /* Případně box-shadow pro jemnou záři nebo hloubku */
+     
 }
 
 .control-group input[type="file"] {
@@ -155,8 +166,7 @@ input[type="file"]:hover {
     font-size: 14px;
     background-color: #f9f9f9;
     cursor: pointer;
-    border: 2px solid #800000; /* Například tmavě šedý rámeček */
-    /* Případně box-shadow pro jemnou záři nebo hloubku */
+     
 }
 
 .control-group input[type="file"]:hover {
@@ -184,13 +194,7 @@ input[type="file"]:hover {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-    border: 2px solid #00FFFF; /* Například tmavě šedý rámeček */
-    /* Případně box-shadow pro jemnou záři nebo hloubku */
-    max-width: fit-content; /* Nebo nastav pevnou šířku, např. 600px */
-    margin-left: auto;     /* Vycentruje kontejner */
-    margin-right: auto;    /* Vycentruje kontejner */
-    padding: 1px;         /* Přidej vnitřní odsazení, aby rámeček nebyl nalepen na tlačítka */
-    box-sizing: border-box; /* Zajistí, že padding se započítá do celkové šířky */
+     
 }
 
 .save-options button {
