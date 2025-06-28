@@ -282,9 +282,11 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
+        padding: 4px 8px;
+        font-size: 12px;
+        flex: 0 1 auto; /* Flexibilní šířka */
+        min-width: 70px;
+        max-width: 100px;
     }
 }
 
@@ -328,8 +330,11 @@ input[type="file"]:hover {
     }
     
     .controls {
-        gap: 12px;
-        padding: 8px;
+        flex-direction: row; /* Horizontálně vedle sebe */
+        flex-wrap: wrap; /* Zalamování při nedostatku místa */
+        gap: 15px;
+        padding: 10px;
+        justify-content: center; /* Vycentrování */
     }
     
     .controls input[type="number"] {
@@ -348,8 +353,11 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 12px 15px;
-        font-size: 14px;
+        padding: 4px 8px;
+        font-size: 12px;
+        flex: 0 1 auto; /* Flexibilní šířka */
+        min-width: 70px;
+        max-width: 100px;
     }
 }
 
@@ -405,9 +413,11 @@ input[type="file"]:hover {
     }
     
     .controls {
-        gap: 10px;
-        padding: 6px;
-        border-radius: 6px;
+        flex-direction: row; /* Horizontálně vedle sebe */
+        flex-wrap: wrap; /* Zalamování při nedostatku místa */
+        gap: 15px;
+        padding: 10px;
+        justify-content: center; /* Vycentrování */
     }
     
     .controls input[type="number"] {
@@ -443,12 +453,11 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 10px 12px;
-        font-size: 13px;
-        border-radius: 3px;
-        flex: 0 1 auto; /* Tlačítka se přizpůsobí obsahu */
-        min-width: 80px; /* Minimální šířka pro čitelnost */
-        max-width: 120px; /* Maximální šířka */
+        padding: 4px 8px;
+        font-size: 12px;
+        flex: 0 1 auto; /* Flexibilní šířka */
+        min-width: 70px;
+        max-width: 100px;
     }
 }
 
@@ -486,11 +495,11 @@ input[type="file"]:hover {
     }
     
     .controls {
-        flex-direction: row; /* Zachová horizontální layout */
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 5px;
-        justify-content: center;
+        flex-direction: row; /* Horizontálně vedle sebe */
+        flex-wrap: wrap; /* Zalamování při nedostatku místa */
+        gap: 15px;
+        padding: 10px;
+        justify-content: center; /* Vycentrování */
     }
     
     .controls input[type="number"] {
@@ -499,7 +508,7 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 8px 10px;
+        padding: 4px 8px;
         font-size: 12px;
         flex: 0 1 auto; /* Flexibilní šířka */
         min-width: 70px;
@@ -541,10 +550,11 @@ input[type="file"]:hover {
     }
     
     .controls {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 5px;
+        flex-direction: row; /* Horizontálně vedle sebe */
+        flex-wrap: wrap; /* Zalamování při nedostatku místa */
+        gap: 15px;
+        padding: 10px;
+        justify-content: center; /* Vycentrování */
     }
     
     .save-options {
@@ -553,7 +563,10 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 6px 10px;
-        font-size: 11px;
+        padding: 4px 8px;
+        font-size: 12px;
+        flex: 0 1 auto; /* Flexibilní šířka */
+        min-width: 70px;
+        max-width: 100px;
     }
 }
