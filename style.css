@@ -256,23 +256,29 @@ input[type="file"]:hover {
     }
     
     .controls {
-        flex-direction: column;
+        flex-direction: row; /* Horizontálně vedle sebe */
+        flex-wrap: wrap; /* Zalamování při nedostatku místa */
         gap: 15px;
         padding: 10px;
+        justify-content: center; /* Vycentrování */
     }
     
     .control-group {
-        flex-direction: column;
+        flex-direction: row; /* Také horizontálně */
         gap: 8px;
-        margin: 15px 0;
+        margin: 8px 0; /* Menší margin */
+        align-items: center; /* Vertikální zarovnání */
+        flex: 0 1 auto; /* Flexibilní šířka */
     }
     
     .resolution-buttons,
     .format-buttons,
     .dimension-buttons,
     .batch-buttons {
-        flex-direction: column;
+        flex-direction: row; /* Změna na řádek */
+        flex-wrap: wrap; /* Povolí zalamování při nedostatku místa */
         gap: 8px;
+        justify-content: center; /* Vycentruje tlačítka */
     }
     
     .save-options button {
@@ -430,15 +436,19 @@ input[type="file"]:hover {
     .format-buttons,
     .dimension-buttons,
     .batch-buttons {
+        flex-direction: row; /* Vedle sebe */
+        flex-wrap: wrap;
         gap: 6px;
+        justify-content: center;
     }
     
     .save-options button {
         padding: 10px 12px;
         font-size: 13px;
         border-radius: 3px;
-        width: 100%;
-        max-width: 250px;
+        flex: 0 1 auto; /* Tlačítka se přizpůsobí obsahu */
+        min-width: 80px; /* Minimální šířka pro čitelnost */
+        max-width: 120px; /* Maximální šířka */
     }
 }
 
@@ -476,8 +486,11 @@ input[type="file"]:hover {
     }
     
     .controls {
+        flex-direction: row; /* Zachová horizontální layout */
+        flex-wrap: wrap;
         gap: 8px;
         padding: 5px;
+        justify-content: center;
     }
     
     .controls input[type="number"] {
@@ -488,7 +501,9 @@ input[type="file"]:hover {
     .save-options button {
         padding: 8px 10px;
         font-size: 12px;
-        max-width: 200px;
+        flex: 0 1 auto; /* Flexibilní šířka */
+        min-width: 70px;
+        max-width: 100px;
     }
 }
 
