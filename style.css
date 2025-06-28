@@ -105,11 +105,10 @@ input[type="file"]:hover {
     align-items: center; /* Vertikální zarovnání na střed, pokud by bylo potřeba */
     gap: 20px; /* Mezera mezi jednotlivými skupinami */
     width: 98%; /* Zachování plné šířky */
-    background-color: #f5f5f5;
+     
     padding: 15px;
     border-radius: 8px;
-    border: 2px solid red; /* Například tmavě šedý rámeček */
-    /* Případně box-shadow pro jemnou záři nebo hloubku */
+     
 }
 .controls input[type="number"] {
     background-color: #f0f8ff; /* Světle modré pozadí */
