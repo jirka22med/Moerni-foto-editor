@@ -231,11 +231,13 @@ input[type="file"]:hover {
     }
     
     .editor-container {
-        flex-direction: column;
+        display: flex; /* Explicitní flex */
+        flex-direction: column; /* Náhledy pod sebou */
         gap: 15px;
     }
     
     .preview {
+        flex: none; /* Neroztahuje se */
         min-width: auto;
         margin-bottom: 10px;
     }
@@ -381,11 +383,14 @@ input[type="file"]:hover {
     }
     
     .editor-container {
+        display: flex; /* Explicitní flex */
+        flex-direction: column; /* Náhledy pod sebou */
         gap: 10px;
         margin: 15px 0;
     }
     
     .preview {
+        flex: none; /* Zabráníme roztahování */
         padding: 8px;
         border-radius: 6px;
     }
@@ -535,12 +540,13 @@ input[type="file"]:hover {
     }
     
     .editor-container {
-        flex-direction: row;
+        display: flex; /* Explicitní flex */
+        flex-direction: column; /* Náhledy pod sebou i na landscape */
         gap: 10px;
     }
     
     .preview {
-        flex: 1;
+        flex: none; /* Neroztahuje se */
         padding: 6px;
     }
     
