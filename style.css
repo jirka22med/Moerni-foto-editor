@@ -218,7 +218,7 @@ input[type="file"]:hover {
 }
 
  
- /* =============================================================================
+ //* =============================================================================
    RESPONZIVNÍ @MEDIA QUERIES
    ============================================================================= */
 
@@ -256,6 +256,7 @@ input[type="file"]:hover {
     }
     
     .controls {
+        display: flex; /* Explicitní flex */
         flex-direction: row; /* Horizontálně vedle sebe */
         flex-wrap: wrap; /* Zalamování při nedostatku místa */
         gap: 15px;
@@ -264,6 +265,7 @@ input[type="file"]:hover {
     }
     
     .control-group {
+        display: flex; /* Explicitní flex */
         flex-direction: row; /* Také horizontálně */
         gap: 8px;
         margin: 8px 0; /* Menší margin */
@@ -275,6 +277,7 @@ input[type="file"]:hover {
     .format-buttons,
     .dimension-buttons,
     .batch-buttons {
+        display: flex; /* Explicitní flex */
         flex-direction: row; /* Změna na řádek */
         flex-wrap: wrap; /* Povolí zalamování při nedostatku místa */
         gap: 8px;
@@ -282,11 +285,9 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 4px 8px;
-        font-size: 12px;
-        flex: 0 1 auto; /* Flexibilní šířka */
-        min-width: 70px;
-        max-width: 100px;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
     }
 }
 
@@ -330,11 +331,8 @@ input[type="file"]:hover {
     }
     
     .controls {
-        flex-direction: row; /* Horizontálně vedle sebe */
-        flex-wrap: wrap; /* Zalamování při nedostatku místa */
-        gap: 15px;
-        padding: 10px;
-        justify-content: center; /* Vycentrování */
+        gap: 12px;
+        padding: 8px;
     }
     
     .controls input[type="number"] {
@@ -353,11 +351,8 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 4px 8px;
-        font-size: 12px;
-        flex: 0 1 auto; /* Flexibilní šířka */
-        min-width: 70px;
-        max-width: 100px;
+        padding: 12px 15px;
+        font-size: 14px;
     }
 }
 
@@ -413,11 +408,9 @@ input[type="file"]:hover {
     }
     
     .controls {
-        flex-direction: row; /* Horizontálně vedle sebe */
-        flex-wrap: wrap; /* Zalamování při nedostatku místa */
-        gap: 15px;
-        padding: 10px;
-        justify-content: center; /* Vycentrování */
+        gap: 10px;
+        padding: 6px;
+        border-radius: 6px;
     }
     
     .controls input[type="number"] {
@@ -453,11 +446,12 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 4px 8px;
-        font-size: 12px;
-        flex: 0 1 auto; /* Flexibilní šířka */
-        min-width: 70px;
-        max-width: 100px;
+        padding: 10px 12px;
+        font-size: 13px;
+        border-radius: 3px;
+        flex: 0 1 auto; /* Tlačítka se přizpůsobí obsahu */
+        min-width: 80px; /* Minimální šířka pro čitelnost */
+        max-width: 120px; /* Maximální šířka */
     }
 }
 
@@ -495,11 +489,23 @@ input[type="file"]:hover {
     }
     
     .controls {
-        flex-direction: row; /* Horizontálně vedle sebe */
-        flex-wrap: wrap; /* Zalamování při nedostatku místa */
-        gap: 15px;
-        padding: 10px;
-        justify-content: center; /* Vycentrování */
+        display: flex; /* Explicitní flex */
+        flex-direction: row; /* Zachová horizontální layout */
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 5px;
+        justify-content: center;
+    }
+    
+    .resolution-buttons,
+    .format-buttons,
+    .dimension-buttons,
+    .batch-buttons {
+        display: flex; /* Explicitní flex */
+        flex-direction: row; /* Horizontálně */
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
     }
     
     .controls input[type="number"] {
@@ -508,7 +514,7 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 4px 8px;
+        padding: 8px 10px;
         font-size: 12px;
         flex: 0 1 auto; /* Flexibilní šířka */
         min-width: 70px;
@@ -550,11 +556,10 @@ input[type="file"]:hover {
     }
     
     .controls {
-        flex-direction: row; /* Horizontálně vedle sebe */
-        flex-wrap: wrap; /* Zalamování při nedostatku místa */
-        gap: 15px;
-        padding: 10px;
-        justify-content: center; /* Vycentrování */
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 5px;
     }
     
     .save-options {
@@ -563,10 +568,7 @@ input[type="file"]:hover {
     }
     
     .save-options button {
-        padding: 4px 8px;
-        font-size: 12px;
-        flex: 0 1 auto; /* Flexibilní šířka */
-        min-width: 70px;
-        max-width: 100px;
+        padding: 6px 10px;
+        font-size: 11px;
     }
 }
