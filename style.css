@@ -72,8 +72,7 @@ input[type="file"]:hover {
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     min-width: 300px; /* Minimální šířka pro náhledy */
-    border: 2px solid #333; /* Například tmavě šedý rámeček */
-    /* Případně box-shadow pro jemnou záři nebo hloubku */
+     
     
 }
 
@@ -81,14 +80,7 @@ input[type="file"]:hover {
     margin-top: 0;
     color: #444;
     font-size: 1.2em;
-    border: 2px solid purple; /* Například tmavě šedý rámeček */
-    /* Případně box-shadow pro jemnou záři nebo hloubku */
-    /* Případně box-shadow pro jemnou záři nebo hloubku */
-    max-width: fit-content; /* Omezení šířky na obsah */
-    margin-left: auto;     /* Vycentruje kontejner */
-    margin-right: auto;    /* Vycentruje kontejner */
-    padding: 1px;          /* Vnitřní odsazení */
-    box-sizing: border-box; /* Započítání paddingu do šířky */
+     
 }
 
 /* Kontejner pro obrázky */
