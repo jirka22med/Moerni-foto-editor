@@ -106,7 +106,7 @@ input[type="file"]:hover {
     gap: 20px; /* Mezera mezi jednotlivými skupinami */
     width: 98%; /* Zachování plné šířky */
      
-    padding: 15px;
+    padding: 5px;
     border-radius: 8px;
      
 }
