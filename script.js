@@ -468,8 +468,18 @@ document.getElementById('82x82').addEventListener('click', function() {
     saveImage(82, 82);
 });
 document.getElementById('100x100').addEventListener('click', function() {
-    console.log('%c💾 Uložení 300x300', 'color: #2ECC71; font-weight: bold;');
-    saveImage(300, 300);
+    console.log('%c💾 Uložení 100x100', 'color: #2ECC71; font-weight: bold;');
+    saveImage(100, 100);
+});
+
+document.getElementById('192x192').addEventListener('click', function() {
+    console.log('%c💾 Uložení 192x192', 'color: #2ECC71; font-weight: bold;');
+    saveImage(192, 192);
+});
+
+document.getElementById('512x512').addEventListener('click', function() {
+    console.log('%c💾 Uložení 512x512', 'color: #2ECC71; font-weight: bold;');
+    saveImage(512, 512);
 });
 
 document.getElementById('768x1280').addEventListener('click', function() {
