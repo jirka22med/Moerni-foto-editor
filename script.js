@@ -487,8 +487,8 @@ document.getElementById('768x1280').addEventListener('click', function() {
     saveImage(768, 1280);
 });
 
-document.getElementById('infinix').addEventListener('click', function() {
-    console.log('%c💾 Uložení 4592x2016', 'color: #2ECC71; font-weight: bold;');
+document.getElementById('4592x2016').addEventListener('click', function() {
+    console.log('%c💾 Uložení 768x1280', 'color: #2ECC71; font-weight: bold;');
     saveImage(4592, 2016);
 });
 
