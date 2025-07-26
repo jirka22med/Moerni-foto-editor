@@ -487,6 +487,11 @@ document.getElementById('768x1280').addEventListener('click', function() {
     saveImage(768, 1280);
 });
 
+document.getElementById('infinix').addEventListener('click', function() {
+    console.log('%c💾 Uložení 4592x2016', 'color: #2ECC71; font-weight: bold;');
+    saveImage(4592, 2016);
+});
+
 // Funkce pro stažení upraveného obrázku
 function saveImage(width, height) {
     console.log('%c💾 === UKLÁDÁNÍ OBRÁZKU ===', 'color: #27AE60; font-weight: bold; font-size: 14px; background: #E8F5E8; padding: 4px;');
