@@ -1,3 +1,4 @@
+
 <html lang="cs"><head>
     <link rel="stylesheet" href="style.css"><meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -5,46 +6,46 @@
     
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="margin-top: -30px; background: transparent;" >
         <h1>Moderní Fotoeditor</h1>
-        <div class="control-group">
-            <input type="file" id="singleImageInput" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp">
+        <div class="control-group" >
+            <input type="file" id="singleImageInput" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0; margin-top: -20px;">
             
         </div>
         
-        <div class="editor-container">
-            <div class="preview">
-                <h2>Před úpravou</h2>
-                <div class="image-container">
-                    <img id="originalImage" src="" alt="Původní obrázek">
+        <div class="editor-container" style="background: transparent;">
+            <div class="preview" style="background: transparent;">
+                
+                <div class="image-container" style="margin-top: -20px; background: transparent;">
+                    <img id="originalImage" src="" alt="Původní obrázek" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
             </div>
         </div>
-         <div class="preview">
-                <h2>Po úpravě</h2>
-                <div class="image-container">
-                    <canvas id="editedCanvas" width="1000" height="900"></canvas>
+         <div class="preview" style="background: transparent;">
+                
+                <div class="image-container" style="margin-top: -20px; background: transparent;">
+                    <canvas id="editedCanvas" width="1000" height="900" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;"></canvas>
             </div>
         </div>
     </div>
-<div class="controls">
+<div class="controls" style="margin-top: -15px; background: transparent;" >
     <div class="control-groupo">
-     <label for="brightness">Jas: <span id="brightnessValue">0</span></label> <input type="number" id="brightness" min="-100" max="100" value="0">
+     <label for="brightness" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Jas: <span id="brightnessValue">0</span></label> <input type="number" id="brightness" min="-100" max="100" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
     </div>
     <div class="control-groupo">
-     <label for="contrast">Kontrast: <span id="contrastValue">0</span></label> <input type="number" id="contrast" min="-100" max="100" value="0">
+     <label for="contrast" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Kontrast: <span id="contrastValue">0</span></label> <input type="number" id="contrast" min="-100" max="100" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
     </div>
     <div class="control-groupo">
-     <label for="saturation">Sytost: <span id="saturationValue">0</span></label> <input type="number" id="saturation" min="-100" max="300" value="0">
+     <label for="saturation" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Sytost: <span id="saturationValue">0</span></label> <input type="number" id="saturation" min="-100" max="300" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
     </div>
     <div class="control-groupo">
-     <label for="exposure">Expozice: <span id="exposureValue">0</span></label> <input type="number" id="exposure" min="-100" max="100" value="0">
+     <label for="exposure" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Expozice: <span id="exposureValue">0</span></label> <input type="number" id="exposure" min="-100" max="100" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
     </div>
     <div class="control-groupo">
-     <label for="hue">Odstín: <span id="hueValue">0</span></label> <input type="number" id="hue" min="0" max="100" value="0">
+     <label for="hue" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Odstín: <span id="hueValue">0</span></label> <input type="number" id="hue" min="0" max="100" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
     </div>
    <div class="control-groupo">
-            <label for="sharpness">Ostrost/Rozostření: <span id="sharpnessValue">0</span></label>
-            <input type="number" id="sharpness" min="-10" max="10" value="0">
+            <label for="sharpness" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Ostrost/Rozostření: <span id="sharpnessValue">0</span></label>
+            <input type="number" id="sharpness" min="-10" max="10" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
         </div>
     </div>
      </div>
@@ -54,29 +55,29 @@
     <div class="save-options">
         <!-- Standardní rozlišení -->
         <div class="resolution-buttons">
-            <button id="saveFullHD">Uložit FullHD</button>
-            <button id="save4K">Uložit 4K</button>
-            <button id="save8K">Uložit 8K</button>
-            <button id="4592x2016">infinix</button>
+            <button id="saveFullHD" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Uložit FullHD</button>
+            <button id="save4K" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Uložit 4K</button>
+            <button id="save8K" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Uložit 8K</button>
+            <button id="4592x2016" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">infinix</button>
         </div>
         <!-- Speciální formáty pro hry -->
         <div class="format-buttons">
-            <button id="savepn">Uložit PN</button>
-            <button id="savehd">Uložit Hra</button>
-            <button id="savelod">Uložit lod</button>
-            <button id="savepostavy">Uložit postavy</button>
+            <button id="savepn" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Uložit PN</button>
+            <button id="savehd" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Uložit Hra</button>
+            <button id="savelod" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Uložit lod</button>
+            <button id="savepostavy" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Uložit postavy</button>
         </div>
         <!-- Rozměry pro herní textury -->
         <div class="dimension-buttons">
-            <button id="16x16">16x16</button>     
-            <button id="32x32">32x32</button>            
-            <button id="64x64">64x64</button>
-            <button id="82x82">82x82</button>
-            <button id="100x100">100x100</button>
-            <button id="192x192">192x192</button>
-            <button id="512x512">512x512</button> 
+            <button id="16x16"  style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">16x16</button>     
+            <button id="32x32" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;"> 32x32</button>            
+            <button id="64x64"  style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">64x64</button>
+            <button id="82x82"  style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">82x82</button>
+            <button id="100x100"  style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">100x100</button>
+            <button id="192x192"  style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">192x192</button>
+            <button id="512x512"  style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">512x512</button> 
            
-            <button id="768x1280">768x1280</button>
+            <button id="768x1280"  style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">768x1280</button>
         </div>
          </div>
                    <!-- tady chybí uzavírka 2 -->
