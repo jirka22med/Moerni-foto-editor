@@ -6,28 +6,28 @@
     
 </head>
 <body>
-    <div class="container" style="margin-top: -30px; background: transparent;" >
+    <div class="container" style="margin-top: -30px;">
         <h1>Moderní Fotoeditor</h1>
         <div class="control-group" >
-            <input type="file" id="singleImageInput" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0; margin-top: -20px;">
+            <input type="file" id="singleImageInput" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
             
         </div>
         
-        <div class="editor-container" style="background: transparent;">
-            <div class="preview" style="background: transparent;">
+        <div class="editor-container">
+            <div class="preview" >
                 
-                <div class="image-container" style="margin-top: -20px; background: transparent;">
+                <div class="image-container">
                     <img id="originalImage" src="" alt="Původní obrázek" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
             </div>
         </div>
-         <div class="preview" style="background: transparent;">
+         <div class="preview">
                 
-                <div class="image-container" style="margin-top: -20px; background: transparent;">
+                <div class="image-container">
                     <canvas id="editedCanvas" width="1000" height="900" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;"></canvas>
             </div>
         </div>
     </div>
-<div class="controls" style="margin-top: -15px; background: transparent;" >
+<div class="controls">
     <div class="control-groupo">
      <label for="brightness" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Jas: <span id="brightnessValue">0</span></label> <input type="number" id="brightness" min="-100" max="100" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
     </div>
