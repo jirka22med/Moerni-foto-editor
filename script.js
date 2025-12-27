@@ -462,7 +462,7 @@ document.getElementById('64x64').addEventListener('click', function() {
     console.log('%c💾 Uložení 64x64', 'color: #2ECC71; font-weight: bold;');
     saveImage(64, 64);
 });
-document.getElementById('64x64').addEventListener('click', function() {
+document.getElementById('72x72').addEventListener('click', function() {
     console.log('%c💾 Uložení 72x72', 'color: #2ECC71; font-weight: bold;');
     saveImage(72, 72);
 });
