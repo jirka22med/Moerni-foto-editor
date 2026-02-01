@@ -415,9 +415,13 @@ sharpnessSlider.addEventListener('input', () => {
     document.getElementById('sharpnessValue').textContent = sharpnessSlider.value;
     debouncedApplyFilters();
 });
-
+ 
 
 // Funkce pro ukládání obrázku v různých rozlišeních (kompletně zachováno z tvého kódu)
+document.getElementById('1918x917').addEventListener('click', function() {
+    console.log('%c💾 Uložení Full HD (1918x917)', 'color: #2ECC71; font-weight: bold;');
+    saveImage(1918, 917);
+});
 document.getElementById('saveFullHD').addEventListener('click', function() {
     console.log('%c💾 Uložení Full HD (1920x1080)', 'color: #2ECC71; font-weight: bold;');
     saveImage(1920, 1080);
