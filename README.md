@@ -55,49 +55,47 @@
  
         
         
-            <button id="1918x917">HD</button>
-            <button id="saveFullHD">Uložit FullHD</button>
-            <button id="save4K">Uložit 4K</button>
-            <button id="save8K">Uložit 8K</button>
-            <button id="4592x2016">infinix</button>
-         
-            <button id="savepn">Uložit PN</button>
-            <button id="savehd">Uložit Hra</button>
-            <button id="savelod">Uložit lod</button>
-            <button id="savepostavy">Uložit postavy</button>
-        
-            <button id="16x16">16x16</button>     
-            <button id="32x32">32x32</button>            
-            <button id="64x64">64x64</button>
-            <button id="72x72">72x72</button>
-            <button id="82x82">82x82</button>
-            <button id="100x100">100x100</button>
-            <button id="192x192">192x192</button>
-            <button id="512x512">512x512</button> 
-            <button id="768x1280">768x1280</button>
-        
-    
-    
-                <option value="" disabled selected>Vyberte standardní rozlišení</option>
-                <option value="1918x917">HD</option>
-                <option value="1920x1080">Uložit FullHD</option>
-                <option value="3840x2160">Uložit 4K</option>
-                <option value="7680x4320">Uložit 8K</option>
-     
-                <option value="7632x1936">Uložit PN</option>
-                <option value="800x600">Uložit Hra</option>
-                <option value="486x253">Uložit lod</option>
-                <option value="174x225">Uložit postavy</option>
-            
-                <option value="16x16">16x16</option>      
-                <option value="32x32">32x32</option>            
-                <option value="64x64">64x64</option>
-                <option value="72x72">72x72</option>
-                <option value="82x82">82x82</option>
-                <option value="100x100">100x100</option>
-                <option value="192x192">192x192</option>
-                <option value="512x512">512x512</option> 
-                <option value="768x1280">768x1280</option>
+           
+#### 📺 Standardní rozlišení:
+                     <button id="1918x917">HD</button>
+                     <button id="saveFullHD">Uložit FullHD</button>
+                     <button id="save4K">Uložit 4K</button>
+                     <button id="save8K">Uložit 8K</button>
+                     <button id="4592x2016">infinix</button>
+ #### 🎮 Herní formáty:        
+                     <button id="savepn">Uložit PN</button>
+                     <button id="savehd">Uložit Hra</button>
+                     <button id="savelod">Uložit lod</button>
+                     <button id="savepostavy">Uložit postavy</button>
+ #### 🎨 Herní textury:       
+                     <button id="16x16">16x16</button>     
+                     <button id="32x32">32x32</button>            
+                     <button id="64x64">64x64</button>
+                     <button id="72x72">72x72</button>
+                     <button id="82x82">82x82</button>
+                     <button id="100x100">100x100</button>
+                     <button id="192x192">192x192</button>
+                     <button id="512x512">512x512</button> 
+                     <button id="768x1280">768x1280</button>
+ #### 🎨 Herní textury: 
+                     <option value="1918x917">HD</option>
+                     <option value="1920x1080">Uložit FullHD</option>
+                     <option value="3840x2160">Uložit 4K</option>
+                     <option value="7680x4320">Uložit 8K</option>
+                     <option value="7632x1936">Uložit PN</option>
+                     <option value="800x600">Uložit Hra</option>
+                     <option value="486x253">Uložit lod</option>
+                     <option value="174x225">Uložit postavy</option>
+#### 🎨 Herní textury:             
+                     <option value="16x16">16x16</option>      
+                     <option value="32x32">32x32</option>            
+                     <option value="64x64">64x64</option>
+                     <option value="72x72">72x72</option>
+                     <option value="82x82">82x82</option>
+                     <option value="100x100">100x100</option>
+                     <option value="192x192">192x192</option>
+                     <option value="512x512">512x512</option> 
+                     <option value="768x1280">768x1280</option>
            
 
 
