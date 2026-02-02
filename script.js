@@ -416,7 +416,7 @@ sharpnessSlider.addEventListener('input', () => {
     debouncedApplyFilters();
 });
  
-
+ 
 // Funkce pro ukládání obrázku v různých rozlišeních (kompletně zachováno z tvého kódu)
 document.getElementById('1918x917').addEventListener('click', function() {
     console.log('%c💾 Uložení Full HD (1918x917)', 'color: #2ECC71; font-weight: bold;');
@@ -498,6 +498,49 @@ document.getElementById('4592x2016').addEventListener('click', function() {
     console.log('%c💾 Uložení 768x1280', 'color: #2ECC71; font-weight: bold;');
     saveImage(4592, 2016);
 });
+ 
+
+// --- PŘÍMÉ NAPOJENÍ TVÝCH DEFINIC NA MENU ---
+// Tato funkce obsluhuje všechna tvoje menu najednou bez nutnosti můstku
+
+const obsluhujMenu = (event) => {
+    const volba = event.target;
+    const idTlacitka = volba.options[volba.selectedIndex].id || volba.value;
+
+    // Tvoje definice rozměrů přímo v akci
+    switch(idTlacitka) { // V tomto případě idTlacitka = volba.value
+    // A) Standardní rozlišení
+    case '1918x917':   saveImage(1918, 917);  break;
+    case '1920x1080':  saveImage(1920, 1080); break;
+    case '3840x2160':  saveImage(3840, 2160); break;
+    case '7680x4320':  saveImage(7680, 4320); break;
+    case '4592x2016':  saveImage(4592, 2016); break;
+
+    // B) Herní formáty
+    case '7632x1936':  saveImage(7632, 1936); break;
+    case '800x600':    saveImage(800, 600);   break;
+    case '486x253':    saveImage(486, 253);   break;
+    case '174x225':    saveImage(174, 225);   break;
+
+    // C) Herní textury
+    case '16x16':      saveImage(16, 16);     break;
+    case '32x32':      saveImage(32, 32);     break;
+    case '64x64':      saveImage(64, 64);     break;
+    case '72x72':      saveImage(72, 72);     break;
+    case '82x82':      saveImage(82, 82);     break;
+    case '100x100':    saveImage(100, 100);   break;
+    case '192x192':    saveImage(192, 192);   break;
+    case '512x512':    saveImage(512, 512);   break;
+    case '768x1280':   saveImage(768, 1280);  break;
+}
+volba.value = ""; // Reset menu po výběru
+};
+
+// Tady napojíme tvoje nové třídy přímo na tuhle logiku
+document.querySelectorAll('.bridge-select-0, .bridge-select-1, .bridge-select-2').forEach(select => {
+    select.addEventListener('change', obsluhujMenu);
+});
+
 
 // Funkce pro stažení upraveného obrázku
 function saveImage(width, height) {
@@ -533,4 +576,64 @@ function saveImage(width, height) {
     link.click();
     console.log('%c✅ Stahování zahájeno úspěšně!', 'color: #27AE60; font-weight: bold;');
     console.log('%c💾 === UKLÁDÁNÍ DOKONČENO ===', 'color: #27AE60; font-weight: bold; font-size: 14px; background: #E8F5E8; padding: 4px;');
+}
+
+// --- NEZÁVISLÁ PODFUNKCE: PŘEPÍNAČ PANELŮ ---
+// --- AKTUALIZOVANÁ LOGIKA PŘEPÍNAČŮ VICE ADMIRÁLA ---
+// --- LOGIKA PŘEPÍNAČŮ SE STAVY AKTIV/DEAKTIV ---
+const btn1 = document.getElementById('zobrazit-skryt-panel-1');
+const btn2 = document.getElementById('zobrazit-skryt-panel-2');
+const btnObe = document.getElementById('zobrazit-skryt-obe-sekce-na-jednou');
+const panel1 = document.getElementById('zobrazit-skryt-panel-1-kont');
+const panel2 = document.getElementById('zobrazit-skryt-panel-2-kont');
+
+// POMOCNÁ FUNKCE PRO VIZUÁLNÍ STAV (Udržuje vojenský pořádek v ID)
+function aktualizujStavTlacitek(aktivniBtn) {
+    [btn1, btn2, btnObe].forEach(btn => {
+        if (btn) {
+            if (btn === aktivniBtn) {
+                btn.classList.add('aktivni');
+                btn.classList.remove('deaktivni');
+            } else {
+                btn.classList.add('deaktivni');
+                btn.classList.remove('aktivni');
+            }
+        }
+    });
+}
+
+// !!! INICIALIZACE PŘI STARTU !!!
+// Tady dáváme systému vědět, že po načtení na displayi svítí první volba
+if (btn1) {
+    aktualizujStavTlacitek(btn1);
+}
+
+// A) Kontrola a akce pro Panel 1 (📋)
+if (btn1 && panel1) {
+    btn1.addEventListener('click', () => {
+        panel1.style.display = 'block';
+        panel2.style.display = 'none';
+        aktualizujStavTlacitek(btn1);
+        console.log('%c📋 Původní panel aktivován', 'color: #C00000; font-weight: bold;');
+    });
+}
+
+// B) Kontrola a akce pro Panel 2 (📑)
+if (btn2 && panel2) {
+    btn2.addEventListener('click', () => {
+        panel1.style.display = 'none';
+        panel2.style.display = 'block';
+        aktualizujStavTlacitek(btn2);
+        console.log('%c📑 Nová selekce aktivována', 'color: #C00000; font-weight: bold;');
+    });
+}
+
+// C) Tvůj nový rozkaz: Skrýt obě sekce najednou (📑)
+if (btnObe && panel1 && panel2) {
+    btnObe.addEventListener('click', () => {
+        panel1.style.display = 'none';
+        panel2.style.display = 'none';
+        aktualizujStavTlacitek(btnObe);
+        console.log('%c📑 Obě sekce schovány najednou - čistý výhled!', 'color: #C00000; font-weight: bold;');
+    });
 }
