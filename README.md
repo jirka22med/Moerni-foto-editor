@@ -52,25 +52,20 @@
 ### Export & Rozlišení:
 
 
-  <div id="zobrazit-skryt-panel-1-kont">
-    <div class="save-options">
+ 
         
-        <div class="resolution-buttons">
+        
             <button id="1918x917">HD</button>
             <button id="saveFullHD">Uložit FullHD</button>
             <button id="save4K">Uložit 4K</button>
             <button id="save8K">Uložit 8K</button>
             <button id="4592x2016">infinix</button>
-        </div>
-        
-        <div class="format-buttons">
+         
             <button id="savepn">Uložit PN</button>
             <button id="savehd">Uložit Hra</button>
             <button id="savelod">Uložit lod</button>
             <button id="savepostavy">Uložit postavy</button>
-        </div>
         
-        <div class="dimension-buttons">
             <button id="16x16">16x16</button>     
             <button id="32x32">32x32</button>            
             <button id="64x64">64x64</button>
@@ -79,39 +74,21 @@
             <button id="100x100">100x100</button>
             <button id="192x192">192x192</button>
             <button id="512x512">512x512</button> 
-           
             <button id="768x1280">768x1280</button>
-        </div>
-         </div>
-      </div>
-    
-    <div id="zobrazit-skryt-panel-2-kont">
-    <div id="nova-funkce" class="save-options">
         
-        <div class="resolution-buttons">
-            <select id="select-hlavni-tlacitka" class="bridge-select-0" style="padding:10px; background:#000; border:2px solid #C00000; color:#fff;">
+    
+    
                 <option value="" disabled selected>Vyberte standardní rozlišení</option>
                 <option value="1918x917">HD</option>
                 <option value="1920x1080">Uložit FullHD</option>
                 <option value="3840x2160">Uložit 4K</option>
                 <option value="7680x4320">Uložit 8K</option>
-                <option value="4592x2016">infinix</option>
-            </select>
-        </div>
-
-        <div class="format-buttons">
-            <select id="select-vedlejsi-1" class="bridge-select-1" style="padding:10px; background:#000; border:2px solid #C00000; color:#fff;">
-                <option value="" disabled selected>Vyberte herní formát</option>
+     
                 <option value="7632x1936">Uložit PN</option>
                 <option value="800x600">Uložit Hra</option>
                 <option value="486x253">Uložit lod</option>
                 <option value="174x225">Uložit postavy</option>
-            </select>
-        </div> 
-
-        <div class="dimension-buttons">
-            <select id="select-vedlejsi-2" class="bridge-select-2" style="padding:10px; background:#000; border:2px solid #C00000; color:#fff;">
-                <option value="" disabled selected>Vyberte texturu</option>
+            
                 <option value="16x16">16x16</option>      
                 <option value="32x32">32x32</option>            
                 <option value="64x64">64x64</option>
@@ -121,10 +98,7 @@
                 <option value="192x192">192x192</option>
                 <option value="512x512">512x512</option> 
                 <option value="768x1280">768x1280</option>
-            </select>
-        </div>
-    </div>
-</div> 
+           
 
 
 - **Panel 1** (📋) - Klasická tlačítka pro rychlý přístup
