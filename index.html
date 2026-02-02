@@ -1,4 +1,4 @@
-
+ 
 <html lang="cs"><head>
     <link rel="stylesheet" href="style.css"><meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
         <h1>Moderní Fotoeditor</h1>
         <div class="control-group" >
             <input type="file" id="singleImageInput" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
+             
             
         </div>
         
@@ -27,6 +28,9 @@
             </div>
         </div>
     </div>
+        
+      
+        
 <div class="controls">
     <div class="control-groupo">
      <label for="brightness" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Jas: <span id="brightnessValue">0</span></label> <input type="number" id="brightness" min="-100" max="100" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
@@ -46,12 +50,16 @@
    <div class="control-groupo">
             <label for="sharpness" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">Ostrost/Rozostření: <span id="sharpnessValue">0</span></label>
             <input type="number" id="sharpness" min="-10" max="10" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
+       </div>
+       <button id="zobrazit-skryt-panel-1">📋</button>
+<button id="zobrazit-skryt-panel-2">📑</button> 
+<button id="zobrazit-skryt-obe-sekce-na-jednou">📑</button>    
         </div>
     </div>
-     </div>
-           <!-- tady chybí uzavírka 1-->
-
-
+      
+            
+ 
+      <div id="zobrazit-skryt-panel-1-kont">
     <div class="save-options">
         <!-- Standardní rozlišení -->
         <div class="resolution-buttons">
@@ -82,7 +90,48 @@
             <button id="768x1280">768x1280</button>
         </div>
          </div>
-                   <!-- tady chybí uzavírka 2 -->
+      </div>
+    
+    <div id="zobrazit-skryt-panel-2-kont">
+    <div id="nova-funkce" class="save-options">
+        
+        <div class="resolution-buttons">
+            <select id="select-hlavni-tlacitka" class="bridge-select-0" style="padding:10px; background:#000; border:2px solid #C00000; color:#fff;">
+                <option value="" disabled selected>Vyberte standardní rozlišení</option>
+                <option value="1918x917">HD</option>
+                <option value="1920x1080">Uložit FullHD</option>
+                <option value="3840x2160">Uložit 4K</option>
+                <option value="7680x4320">Uložit 8K</option>
+                <option value="4592x2016">infinix</option>
+            </select>
+        </div>
+
+        <div class="format-buttons">
+            <select id="select-vedlejsi-1" class="bridge-select-1" style="padding:10px; background:#000; border:2px solid #C00000; color:#fff;">
+                <option value="" disabled selected>Vyberte herní formát</option>
+                <option value="7632x1936">Uložit PN</option>
+                <option value="800x600">Uložit Hra</option>
+                <option value="486x253">Uložit lod</option>
+                <option value="174x225">Uložit postavy</option>
+            </select>
+        </div> 
+
+        <div class="dimension-buttons">
+            <select id="select-vedlejsi-2" class="bridge-select-2" style="padding:10px; background:#000; border:2px solid #C00000; color:#fff;">
+                <option value="" disabled selected>Vyberte texturu</option>
+                <option value="16x16">16x16</option>      
+                <option value="32x32">32x32</option>            
+                <option value="64x64">64x64</option>
+                <option value="72x72">72x72</option>
+                <option value="82x82">82x82</option>
+                <option value="100x100">100x100</option>
+                <option value="192x192">192x192</option>
+                <option value="512x512">512x512</option> 
+                <option value="768x1280">768x1280</option>
+            </select>
+        </div>
+    </div>
+</div>         
     
 
 
