@@ -184,9 +184,9 @@ python -m SimpleHTTPServer 8000
 | **4K UHD** | 3840×2160 | Ultra HD |
 | **8K UHD** | 7680×4320 | Profesionální kvalita |
 | **Infinix** | 4592×2016 | Ultra-wide formát |
-| **Panorama** | 7632×1936 | Širokoúhlý formát |
-| **Hra HD** | 800×600 | Klasické herní rozlišení |
-| **Low Detail** | 486×253 | Pro optimalizaci výkonu |
+| **PN** | 7632×1936 | Širokoúhlý formát |
+| **Hra** | 800×600 | Klasické herní rozlišení |
+| **lod** | 486×253 | Pro optimalizaci výkonu |
 | **Postavy** | 174×225 | Portrétní formát pro hry |
 | **Ikony/Textury** | 16×16 až 768×1280 | Různé velikosti pro vývoj her |
 
