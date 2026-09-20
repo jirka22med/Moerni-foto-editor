@@ -479,6 +479,11 @@ document.getElementById('100x100').addEventListener('click', function() {
     saveImage(100, 100);
 });
 
+document.getElementById('150x150').addEventListener('click', function() {
+    console.log('%c💾 Uložení 150x150', 'color: #2ECC71; font-weight: bold;');
+    saveImage(150, 150);
+});
+
 document.getElementById('192x192').addEventListener('click', function() {
     console.log('%c💾 Uložení 192x192', 'color: #2ECC71; font-weight: bold;');
     saveImage(192, 192);
