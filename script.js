@@ -534,6 +534,7 @@ const obsluhujMenu = (event) => {
     case '72x72':      saveImage(72, 72);     break;
     case '82x82':      saveImage(82, 82);     break;
     case '100x100':    saveImage(100, 100);   break;
+    case '150x150':    saveImage(150, 150);   break;      
     case '192x192':    saveImage(192, 192);   break;
     case '512x512':    saveImage(512, 512);   break;
     case '768x1280':   saveImage(768, 1280);  break;
