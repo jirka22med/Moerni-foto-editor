@@ -539,6 +539,8 @@ const obsluhujMenu = (event) => {
     case '512x512':    saveImage(512, 512);   break;
     case '768x1280':   saveImage(768, 1280);  break;
     case '1918x917':   saveImage(1918, 917);  break;
+    case '2560x423':   saveImage(2560, 423);  break;
+         
            
 }
 volba.value = ""; // Reset menu po výběru
