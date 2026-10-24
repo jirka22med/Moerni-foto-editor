@@ -503,7 +503,12 @@ document.getElementById('4592x2016').addEventListener('click', function() {
     console.log('%c💾 Uložení 768x1280', 'color: #2ECC71; font-weight: bold;');
     saveImage(4592, 2016);
 });
- 
+
+document.getElementById('4592x2016').addEventListener('click', function() {
+    console.log('%c💾 Uložení 2560x423', 'color: #2ECC71; font-weight: bold;');
+    saveImage(2560, 423);
+});
+
 
 // --- PŘÍMÉ NAPOJENÍ TVÝCH DEFINIC NA MENU ---
 // Tato funkce obsluhuje všechna tvoje menu najednou bez nutnosti můstku
