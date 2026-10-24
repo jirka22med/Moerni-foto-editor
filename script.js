@@ -504,9 +504,9 @@ document.getElementById('4592x2016').addEventListener('click', function() {
     saveImage(4592, 2016);
 });
 
-document.getElementById('2048x900').addEventListener('click', function() {
-    console.log('%c💾 Uložení 2048x900', 'color: #2ECC71; font-weight: bold;');
-    saveImage(2048, 900);
+document.getElementById('1024x576').addEventListener('click', function() {
+    console.log('%c💾 Uložení 1024x576', 'color: #2ECC71; font-weight: bold;');
+    saveImage(1024, 576);
 });
 
 
